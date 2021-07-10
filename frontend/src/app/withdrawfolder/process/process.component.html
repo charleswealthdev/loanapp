@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto mt-5 text-center">
+            <div class="card shadow mt-5 p-5">
+                 <h3 class="text-center text-danger">{{texts}} <br><br>{{subtext}}</h3>
+                 <button mat-raised-button color="warn" class="mt-4 mx-auto" *ngIf="cancelbutton" (click)="canceloperation()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

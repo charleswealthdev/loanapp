@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row mx-auto">
+        <div class="col-md-4 text-center mt-5 " *ngFor="let item of categoryarray">
+            <div class="card shadow p-3 ">
+                  <h5>{{item.category}}</h5>
+                <div class="card-body">
+                        <div>
+                            <p>{{item.message}}
+                                <small><b>On {{item.created_at | date :'fullDate'}}</b></small>
+                            </p>
+                             <button mat-raised-button style="background-color: #5d015d;" class="float-start text-white" (click)="editcategory(item.category_id, item.category, item.message)">Edit</button>
+                             <button mat-raised-button style="background-color: #86040a;" class="float-end text-white" (click)="deletecategory(item.category_id, item.category)">remove</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

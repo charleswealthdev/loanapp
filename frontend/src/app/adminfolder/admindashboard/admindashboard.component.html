@@ -1,0 +1,211 @@
+<div class="container-fluid">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <div class="row">
+
+                    <div class="col-md-6">
+                       <h3><span class="fa fa-users ms-2 fa-2x" style="color: #00C292;"></span></h3> 
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3>{{users}}</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <h6 class="text-gray-50">Users</h6> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <div class="row">
+
+                    <div class="col-md-6">
+                       <h3><span class="fa fa-hand-holding-usd ms-2 fa-2x" style="color: #AB8CE4;"></span></h3> 
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3>{{loans}}</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <h6 class="text-gray-50">Loans</h6> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <div class="row">
+
+                    <div class="col-md-6">
+                       <h3><span class="fa fa-wave-square ms-2 fa-2x" style="color: #03A9F3;"></span></h3> 
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3>{{paid}}</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                               <h6 class="text-gray-50">Pending loans</h6> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <div class="row">
+
+                    <div class="col-md-6">
+                       <h3><span class="fa fa-money-bill ms-2 fa-2x" style="color: #FB9678;"></span></h3> 
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3>{{applied}}</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                               <h6 class="text-gray-50">Applied loans</h6> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card shadow mt-3 p-2">
+                <div class="row">
+                    <div class="col-md-8">
+                        <canvas baseChart 
+                        [datasets]="barChartData" 
+                        [labels]="barChartLabels" 
+                        [options]="barChartOptions"
+                        [colors]="barChartColors" 
+                        [legend]="barChartLegend" 
+                        [chartType]="barChartType" 
+                        [plugins]="barChartPlugins">
+                    </canvas>
+
+                </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 mt-4">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                   <h3><span class="fa fa-list ms-2 fa-2x" style="color: #00C292;"></span></h3> 
+                                </div>
+            
+                                <div class="col-md-6">
+                                    <h3>{{category}}</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                           <h6 class="text-gray-50">Category</h6> 
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+
+                            <div class="row p-3">
+                                <div class="col-md-12">
+                                    <div class="card-shadow">
+                                        <button class="float-end" [routerLink]="['/admin_navigations/allcategories']" mat-raised-button color="warn">View all</button>
+                                        <div class="card-body">
+                                    <div class="table-responsive-sm col-md-12">
+                                        <table class="table">
+                                          <thead>
+                                            <tr>
+                                              <th scope="col"></th>
+                                              <th scope="col">Category</th>
+                                              <th scope="col">Date Added</th>
+                                            </tr>
+                                          </thead>
+                                            <tbody *ngFor="let item of categoryarray | filter:filterTerm | paginate: { itemsPerPage: 4, currentPage: p}">
+                                              <tr>
+                                                <th scope="row"><ul style="list-style-type: circle;"><li></li></ul></th>
+                                                <td>{{item.category}}</td>
+                                                <td>{{item.created_at | date :'fullDate'}}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                        <pagination-controls hidden class="mx-auto"
+                                        (pageChange)="p = $event"
+                                       ></pagination-controls>
+                                </div>
+            
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col-md-12 p-4">
+            <div class="card shadow p-4 rounded">
+                <h6 class="float-start">Loan Requests</h6>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card shadow p-3">
+                <div class="card-body">
+                    <div class="table-responsive-sm col-md-12">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col"></th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Category</th>
+                              <th scope="col">Loan</th>
+                              <th scope="col">Repayment period</th>
+                              <th scope="col">Total repayment</th>
+                              <th scope="col">Date applied</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                            <tbody *ngFor="let item of requestArray | filter:filterTerm | paginate: { itemsPerPage: 4, currentPage: p}">
+                              <tr>
+                                <td scope="row"><ul style="list-style-type: circle;"><li></li></ul></td>
+                                <td>{{item.firstname}} {{item.lastname}}</td>
+                                <td>{{item.category}}</td>
+                                <td>{{item.amount | currency}}</td>
+                                <td>{{item.paybacktime}} @ {{item.interest}}%</td>
+                                <td>{{item.total | currency}}</td>
+                                <td>{{item.created_at | date :'fullDate'}}</td>
+                                <td><button mat-raised-button color="primary">{{item.paid_status}}</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <pagination-controls class="mx-auto text-center"
+                        (pageChange)="p = $event"
+                       ></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

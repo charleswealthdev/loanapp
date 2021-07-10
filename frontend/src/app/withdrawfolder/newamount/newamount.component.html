@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 text-center mx-auto">
+            <div class="card mt-5">
+                <div class="card-body">
+
+                    <div class="row">
+                        <mat-form-field class="example-full-width col-md-12">
+                            <mat-label>Enter Amount</mat-label>
+                            <input matInput type="number" [(ngModel)]="amount" placeholder="2000">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row m-3">
+                        <button mat-raised-button color="primary" (click)="proceedtowithdraw()">Proceed</button>
+                    </div>
+
+                    <div class="row m-3">
+                        <button mat-raised-button color="warn" (click)="backhome()">Cancel</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

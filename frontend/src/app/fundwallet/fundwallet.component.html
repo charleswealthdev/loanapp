@@ -1,0 +1,13 @@
+<div class="container">
+   <div class="row mx-auto justify-content-center">
+       <div class="col-md-12 text-center mt-5">
+          <div>
+             <h3>CONFIRM YOUR ACCOUNT</h3>
+             <div>
+               <button mat-raised-button class="m-3" (click)="sendemail()">Send token <i *ngIf="load" class="fas fa-spinner fa-pulse"></i></button>
+               <button mat-raised-button color="warn" [routerLink]="['/sidebar/dashboard']">CANCEL</button>
+             </div>
+          </div>
+       </div>
+   </div>
+  </div>

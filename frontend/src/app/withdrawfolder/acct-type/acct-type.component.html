@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h3 class="text-center mt-5">SELECT AMOUNT</h3>
+            <div>
+
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="acct_type" class="row mx-auto text-center mt-5">
+                        <mat-radio-button value="Savings" class="col-md-2 mb-4 float-start">Savings</mat-radio-button>
+                        <mat-radio-button value="Current" class="col-md-2 mb-4 mx-auto">Current</mat-radio-button>
+                        <mat-radio-button value="Fixed Deposit" class="col-md-2 mb-4 float-end">Fixed Deposit</mat-radio-button>
+                    </mat-radio-group>
+                    <button mat-raised-button color="primary" class="mt-3 float-end" (click)="proceed()">Proceed</button>
+                    <button mat-raised-button color="warn" class="mt-3 float-start" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

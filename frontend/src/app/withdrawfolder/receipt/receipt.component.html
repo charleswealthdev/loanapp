@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto mt-5 text-center">
+            <div class="card shadow p-5">
+                <h5>Do you need a receipt for this transaction?</h5>
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="receiptaction" class="mt-5">
+                    <mat-radio-button class="float-end" value="yes">YES</mat-radio-button>
+                    <mat-radio-button class="float-start" value="no">NO</mat-radio-button>
+                </mat-radio-group>
+                <button mat-raised-button class="float-end mt-4" color="primary" (click)="proceed()">Proceed</button>
+                <button mat-raised-button class="float-start mt-4" color="warn" (click)="backhome()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+
+    <mat-nav-list>
+
+      <a mat-list-item class="mt-2 mr-2" (click)="routeTodashboard()"><span class="fa fa-tachometer-alt p-2"></span><b>Dashboard</b></a>
+      <a mat-list-item class="mt-2 mr-2"><span class="fa fa-hand-holding-usd p-2"></span><b>Requests</b></a>
+      <a mat-list-item class="mt-2 mr-2" (click)="addcategory()"><span class="fa fa-list p-2"></span><b>Category</b></a>
+      <a mat-list-item class="mt-2 mr-2" [routerLink]="['/admin_navigations/addloan']"><span class="fa fa-chart-line p-2"></span><b>Loan</b></a>
+      <a mat-list-item class="mt-2 mr-2"><span class="fa fa-sticky-note p-2"></span><b>T & C</b></a>
+      <a mat-list-item class="mt-2 mr-2"><span class="fa fa-sign-out-alt p-2"></span><b>Logout</b></a>
+      
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar style="background-color: #5d015d;">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="text-white">CASH LOAN
+      </span>
+
+     <div class="ms-auto">
+       <span [matBadge]="myvalue" matBadgeColor="warn" class="fa fa-bell text-white m-4"></span>
+       <span class="fa fa-cog text-white"></span>
+     </div> 
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

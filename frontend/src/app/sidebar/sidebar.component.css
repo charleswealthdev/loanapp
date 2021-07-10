@@ -1,0 +1,32 @@
+/* #img-bg{
+    height: 650px;  
+    width: 200px; */
+    /* color: #fff; */
+    /* background-image: url("../../assets/img/circle2.png");  
+    background-size: 100% ;  
+    background-size: cover;  
+} */
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.sidenav mat-nav-list a:hover{
+  background-color: rgba(206, 200, 200, 0.678);
+  margin-left: 5px;
+  transition: 0.5s;
+}

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto text-center" *ngFor="let item of filteredlist">
+            <div class="card shadow mt-5 p-3">
+                <div class="card-body">
+                        <h5>{{item.category}}</h5>
+                        <small>A loan amount of <b class="text-danger" style="font-size: 16px;">{{item.amount | currency}}</b> with an interest of <b class="text-danger" style="font-size: 16px;">{{item.interest}}%</b></small>
+                        <div class="mt-2">
+                            You only have {{item.paybacktime}} to pay back.
+                        </div>
+                        <div class="mt-2">
+                            <button mat-raised-button class="col-md-12 mt-3 text-white" style="border-radius: 50px; background-color: #565656;" (click)="applyforloan(item)">{{item.status}}</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

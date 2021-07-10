@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+         <h5 class="float-end mt-3">All Transactions</h5>
+        <div class="col-md-12 mt-2 mx-auto justify-content-center">
+            <!-- <div class="card shadow"> -->
+              <div class="col-md-4 mx-auto text-center">
+                <mat-form-field class="example-full-width col-md-12">
+                    <mat-label>Search...</mat-label>
+                    <input matInput [(ngModel)]="filterTerm" placeholder="">
+                </mat-form-field>
+            </div>
+                    <mat-horizontal-stepper class="col-md-12">
+                        <mat-step color="warn" *ngFor="let item of myarrays | filter:filterTerm">
+                          <form>
+                            <ng-template matStepLabel><b>{{item.name}}</b></ng-template>
+                              <p><b>Name:</b> {{item.firstname}} {{item.surname}}</p>
+                              <p><b>Amount:</b> {{item.amount | currency}}</p>
+                              <p><b>Phone number:</b> {{item.phone}}</p>
+                              <p><b>Acct:</b> {{item.accountno}}</p>
+                              <p><b>Total amt:</b> {{item.total | currency}}</p>
+                              <p><b>On:</b> {{item.created_at | date :'medium'}}</p>
+                          </form>
+                        </mat-step>
+                      </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row p-4">
+        <div class="col-md-8 mx-auto text-center mt-1">
+                <div class="card shadow p-4 mt-5" style="border-radius: 10px;">
+                    <h5><b>STATUS</b></h5>
+
+                    <div class="spinners mx-auto text-center" *ngIf="load">
+                        <div class="spinner-grow text-secondary ml-5" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-secondary" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-secondary" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                      
+                    <div class="card-body">
+                        <p class="mb-3">{{text}}</p>
+
+                        <div *ngIf="checks">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h3 class="float-start text-danger">{{amount | currency}}</h3>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                               <h5 class="float-start">Interest fee: {{interest}}%</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="float-end">Approval status</h5><br>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                               <h5 class="float-start">Repayment period: {{paybacktime}}</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="float-end col-md-5 text-danger" mat-raised-button>{{status | uppercase}}</button>
+                             </div>
+                        </div>
+
+                        </div>
+
+                        <div *ngIf="!checks">
+                            <button mat-raised-button class="col-md-12 mt-3 text-white" style="border-radius: 50px; background-color: #565656;" (click)="listofloans()">Apply now!</button>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="checks">
+            <div class="col-md-6 mx-auto text-center mt-4">
+                <button mat-raised-button class="mx-auto" color="warn" (click)="getnewLoan()">Apply for a new loan</button>
+            </div>
+    </div>
+</div>

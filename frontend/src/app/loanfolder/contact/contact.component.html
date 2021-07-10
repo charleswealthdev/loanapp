@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-5 mt-5">
+                 <h2 class="text-center">Do you have any problem using our app?</h2>
+                 <p class="text-center">You can send us message here</p>
+                 <textarea name="message" [(ngModel)]="message" placeholder="Write something here..." class="form-control rounded" id="" cols="30" rows="10"></textarea>
+                 <button mat-raised-button color="primary" class="mt-4 col-md-12" (click)="sendmessage()">Send <i *ngIf="load" class="fa fa-spinner fa-spin text-light ml-2"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

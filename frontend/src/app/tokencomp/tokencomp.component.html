@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row mx-auto">
+
+        <div class="col-md-12 text-center mt-3">
+
+            <p>Enter the 6 digit pin being sent to your Email address</p>
+            <input type="text" [(ngModel)]="pin" autocomplete="off" class="mb-4" style="border-top: none; border-left: none; border-right: none; outline:none; background: none; letter-spacing: 11px; width: 123px;" maxlength="6">
+        
+            <div>
+                <button mat-raised-button (click)="checkpin()">Continue</button>
+                <!-- <button mat-button (click)="confirmpin()" cdkFocusInitial>Ok</button> -->
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+

@@ -1,0 +1,55 @@
+  <div class="container">
+      <span class="fa fa-list fa-2x float-end mt-2"></span>
+        <div class="row">
+            <div class="col-md-7  mx-auto text-center">
+                 <div class="card shadow mt-5 mx-auto text-center">
+                     <div class="card-body">
+                           <h5 class="row"><b>ADD LOAN</b></h5> 
+                         <form [formGroup]="addloan" (ngSubmit)="submitloan()">
+                             
+                             <div class="row p-3">
+                                 <mat-form-field class="example-full-width col-md-12">
+                                     <!-- <input matInput [hidden]/> -->
+                                     <mat-label>Choose loan type</mat-label>
+                                     <mat-select name="category" formControlName="category">
+                                       <mat-option [value]="item.category" *ngFor="let item of categories">{{item.category}}</mat-option>
+                                     </mat-select>
+                                   </mat-form-field>
+                             </div>
+    
+                            <div class="row p-3">
+                                <mat-form-field class="example-full-width col-md-12">
+                                  <mat-label>Add Loan amount</mat-label>
+                                  <input matInput placeholder="$50" name="amount" formControlName="amount" value="">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="row p-3">
+                                <mat-form-field class="example-full-width col-md-12">
+                                  <mat-label>Interest</mat-label>
+                                  <input matInput placeholder="20%" name="interest" formControlName="interest" value="">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="row p-3">
+                                <mat-form-field class="example-full-width col-md-12">
+                                  <mat-label>Payback Date</mat-label>
+                                  <input matInput placeholder="1 month" name="paybacktime" formControlName="paybacktime" value="">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row p-3">
+                                <button type="submit" class="col-md-12 text-white" style="background-color: #5d015d;" mat-raised-button>ADD LOAN <i *ngIf="load" class="fa fa-spinner fa-spin ml-2" style="color: #ffffff;"></i></button>
+                            </div>
+
+                            <div class="row p-3">
+                                <button class="col-md-12 text-white" style="background-color: #86040a;" mat-raised-button>CANCEL</button>
+                            </div>
+
+                        </form>
+
+                     </div>
+                 </div>
+            </div>
+        </div>
+  </div>

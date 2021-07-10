@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+           <h3 class="text-center mt-3"><b>BILLS</b></h3>
+        <div class="col-md-6 mb-2" *ngFor="let item of billsArray">
+                <div class="card shadow p-3">
+                    
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6 style="font-weight: 900;" class="text-danger">{{item.category | uppercase}}</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="float-start">{{item.amount | currency}} @ {{item.interest}}%</p> 
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="float-start"><b>Amount to be paid: </b>{{item.total | currency}}</p> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button mat-raised-button class="float-end text-white" (click)="viewbills(item)" color="warn">Pay up</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row mt-5">
+
+        <div class="col-md-6 mb-3" *ngFor="let names of arrayOfnotificaton | paginate: { itemsPerPage: 8, currentPage: p}">
+                <div class="card shadow">
+                    <div class="card-body">
+                            <div>
+                                <p>{{names.name}}
+                                    <small>On {{names.created_at | date :'fullDate'}}</small>
+                                </p>
+                                 <button mat-raised-button color="primary" class="mx-auto" (click)="viewnotification(names.id, names.name)">view</button>
+                                 <button mat-raised-button color="warn" class="float-end">remove</button>
+                            </div>
+                    </div>
+                </div>
+                
+            </div>
+            <pagination-controls class="mx-auto"
+            (pageChange)="p = $event"
+           ></pagination-controls>
+
+    </div>
+</div>

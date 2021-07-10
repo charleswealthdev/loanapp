@@ -1,0 +1,52 @@
+<div class="container">
+<span class="float-end fa fa-list fa-2x mt-2  mb-3" (click)="getCategories()" style="cursor: pointer; color: #5d015d;"></span>
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center mt-5">
+            <div class="card shadow"> 
+                <div class="card-body">
+
+                    <form class="example-form" [formGroup]="categoryForm" #category=ngForm (ngSubmit)="onSubmit()">
+
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center">
+                                <h4 class="text-center">LOAN CATEGORY</h4>
+                            </div>
+                        </div>
+
+                        <div class="row p-3">
+                            <mat-form-field class="example-full-width col-md-12">
+                              <mat-label>Loan Category</mat-label>
+                              <input matInput placeholder="Farm loan" name="category" formControlName="category" value="">
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="row p-3">
+                            <mat-form-field class="example-full-width col-md-12">
+                              <mat-label>Money Limit</mat-label>
+                              <input matInput placeholder="$100" name="limits" formControlName="limits" value="">
+                            </mat-form-field>
+                        </div>
+                      
+                        <div class="row p-3">
+                            <mat-form-field class="example-full-width col-md-12">
+                              <mat-label>T & C</mat-label>
+                              <textarea matInput placeholder="" formControlName="message" name="message"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-3">
+                            <button type="submit" mat-raised-button class="float-start text-white col-md-12" [disabled]="!category.valid" style="background-color: #5d015d;">ADD CATEGORY <i *ngIf="load" class="fa fa-spinner fa-spin text-light ml-2"></i></button>
+                        </div>
+
+                        <div class="p-3 mt-3 mb-5">
+                            <button mat-raised-button class="float-end text-white col-md-12" style="background-color: #86040a;">CANCEL</button>
+                        </div>
+
+                      </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

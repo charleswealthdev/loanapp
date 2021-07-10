@@ -1,0 +1,43 @@
+<div class="container">
+    <!-- <div class="row">
+        <div class="col-md-12 mt-1" style="max-width: 100%;overflow:hidden; word-spacing: -1px; " *ngFor="let item of messageArr">
+            <div class="card shadow" style="border-bottom-left-radius: 30px;">
+                <div class="card-body" >
+                    <p style="">{{item.chat}}</p>
+                </div>
+            </div>
+        </div>
+   </div> -->
+   
+
+   <div class="row">
+        <div class="chat">
+
+            <div class="message is-received" *ngFor="let item of messageArr">
+                <div class="card shadow" style="border-radius: 10px">
+                    <div class="card-body" >
+                        <p style="">{{item.messages}}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="message is-sent">
+                <div class="card shadow" style="border-radius: 10px; background-color: rgba(255, 255, 24, 0.842);">
+                    <div class="card-body" >
+                        <p style="">Hello {{user.firstname}} {{user.lastname}}, what issue are you encountering ?</p>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+   </div>
+
+   <div class="row">
+        <div class="input-group mb-3" style="position: absolute;bottom: 0;">
+
+        <input type="text" class="form-control" style="max-width: 82%; border-radius: 30px;"  placeholder="Recipient's username" name="chat" [(ngModel)]="chat" aria-label="Recipient's username" aria-describedby="button-addon2">
+
+        <span class="fab fa-telegram fa-3x ms-3" (click)="sendMessage()"></span>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+      <h3 class="text-center mt-2"><b>APPROVED LOANS</b></h3>
+        <div class="col-md-12 mx-auto text-center">
+            <div class="card shadow mt-2" style="border-radius: 20px;">
+              <div class="col-md-4 mx-auto m-2">
+                <mat-form-field class="example-full-width col-md-12">
+                  <mat-label>Search...</mat-label>
+                  <input matInput [(ngModel)]="filterTerm" placeholder="">
+                </mat-form-field>
+              </div>
+              <div class="card-body">
+                  <div class="table-responsive-sm col-md-12">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">Category</th>
+                          <th scope="col">Loan</th>
+                          <th scope="col">Repayment period</th>
+                          <th scope="col">Total repayment</th>
+                          <th scope="col">Date applied</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                        <tbody *ngFor="let item of loanlists | filter:filterTerm | paginate: { itemsPerPage: 4, currentPage: p}">
+                          <tr>
+                            <th scope="row"><ul style="list-style-type: circle;"><li></li></ul></th>
+                            <td>{{item.category}}</td>
+                            <td>{{item.amount | currency}}</td>
+                            <td>{{item.paybacktime}} @ {{item.interest}}%</td>
+                            <td>{{item.total | currency}}</td>
+                            <td>{{item.created_at | date :'fullDate'}}</td>
+                            <td>{{item.paid_status}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <pagination-controls class="mx-auto"
+                    (pageChange)="p = $event"
+                   ></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

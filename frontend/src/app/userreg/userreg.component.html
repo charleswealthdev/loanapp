@@ -1,0 +1,82 @@
+<div class="container mt-4 animate__animated animate__slideInUp">
+    <div class="row mx-auto justify-content-center">
+
+        <div class="col-md-6 mt-5">
+            <img src="../../assets/img/paymentdesign.jpg" class="img-fluid mt-5" style="width: 700px; height: 580px;border-radius: 20px;" alt="" srcset="">
+        </div>
+
+        <div class="col-md-6 mt-5">
+            <div class="card">
+                  <h1 class="card-title">Signup Form</h1>
+                  <small class="card-subtitle">Enter your credentials and get access</small>
+
+                  <form class="card-form" #signup=ngForm (ngSubmit)="onSubmit()">
+
+                    <label for="clientID"></label>
+                    <div class="card-input-container clientID">
+                        <input type="text" name="clientID" hidden [(ngModel)]="form.clientID" class="form-control validate" placeholder="E-mail address" id="email" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="username">Firstname</label>
+                            <div class="card-input-container firstname">
+                                <input type="text" name="firstname" [(ngModel)]="form.firstname" class="form-control validate" placeholder="Enter your firstname" id="firstname" required>
+                            </div>
+                            <!-- <p class="alert alert-danger" [hidden]="!error.firstname">{{error.firstname}}</p> -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="username">Lastname</label>
+                            <div class="card-input-container lastname">
+                                <input type="text" name="lastname" [(ngModel)]="form.lastname" class="form-control validate" placeholder="Enter your lastname" id="lastname" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="email">E-mail</label>
+                            <div class="card-input-container email">
+                                <input type="email" name="email" [(ngModel)]="form.email" class="form-control validate" placeholder="E-mail address" id="email" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="">Phone Number</label>
+                            <div class="card-input-container phone">
+                                <input type="text" name="phone" [(ngModel)]="form.phone" class="form-control validate" placeholder="phone" id="phone" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                  <label id="example-radio-group-label" class="mb-2" style="font-weight: 800">Select Acct type</label>
+                  <mat-radio-group name="acct_type" [(ngModel)]="form.acct_type" class="col-md-12">
+                    <mat-radio-button class="float-start" value="Savings">savings</mat-radio-button>
+                    <mat-radio-button value="Current">current</mat-radio-button>
+                    <mat-radio-button class="float-end" value="Fixed Deposit">Fixed </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                      <label for="password">Password</label>
+                      <div class="card-input-container password">
+                          <input type="password" name="password" [(ngModel)]="form.password" placeholder="Enter your password" id="password" required>
+                      </div>
+
+                      <label for=" password_confirmation">Confirm Password</label>
+                      <div class="card-input-container  password_confirmation">
+                          <input type="password" name=" password_confirmation" [(ngModel)]="form. password_confirmation" placeholder="Re-enter your password" id="cpassword" required>
+                      </div>
+
+
+                      <button class="card-button" type="submit" [disabled]="!signup.valid">Sign In <i *ngIf="load" class="fa fa-spinner fa-spin text-light ml-2"></i></button>
+                      <small class="card-forgot-password">Alreay a member ? <a [routerLink]="['/login']">login!</a></small>
+                    </form>
+              </div>
+        </div>
+       
+    </div>
+  </div>
+

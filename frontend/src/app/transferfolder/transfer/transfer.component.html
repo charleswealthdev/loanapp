@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row mx-auto text-center justify-content-center mt-5">
+        <div class="col-md-6 text-center" *ngFor="let item of filteredfunds">
+                <div class="row">
+                    <h5 class="mb-4">Make transfer to</h5>
+                    <p>Name : <b>{{item.firstname}} {{item.surname}}</b></p>
+                    <p>Acct No : <b>{{item.accountno}}</b></p>
+                    <p>Amount: <b>{{amount | currency}}</b></p>
+                    <p>Bank : <b>{{bankname}}</b></p>
+                </div>
+            <div class="card shadow">
+                    <div class="card-body">
+                        <div class="row m-2">
+                            <mat-form-field class="example-full-width col-md-6 mb-3">
+                                <mat-label>Enter your pin to make transaction</mat-label>
+                                <input class="text-center" autocomplete="off" style="letter-spacing: 9px;" matInput name="pin" minlength="4" maxlength="4" [(ngModel)]="pin">
+                            </mat-form-field> 
+
+                            <button class="col-md-6" (click)="transfermoney()" mat-raised-button color="warn">Transfer <i *ngIf="load" class="fas fa-spinner fa-pulse"></i></button>
+                        </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>

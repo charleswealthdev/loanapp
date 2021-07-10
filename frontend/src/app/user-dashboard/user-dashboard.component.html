@@ -1,0 +1,173 @@
+<!-- <div class="img-container"> -->
+<div class="container-fluid">
+  <h1 class="mat-h1">Dashboard</h1>
+  <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow mb-3" style="border-radius: 20px;height: 250px;">
+      
+          <div class="card-body">
+            <div>
+              <button mat-button class="card-title ml-5 mr-5" style="font-size: 20px">Your wallet</button>
+              <button mat-button class="card-title mx-4 float-end">{{dates | date :'fullDate'}}</button>
+            </div>
+            <hr class="mb-3" style="border: 1px solid black">
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+             <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="withdrawview()">WITHDRAW</button>
+              <button mat-menu-item [routerLink]="['/sidebar/choosebank']">TRANSFER</button>
+              <button mat-menu-item [routerLink]="['/sidebar/funds']">FUND WALLET</button>
+            </mat-menu>
+            <div class="mb-5">
+              <p class="card-text text-center mt-5">Wallet balance</p>
+
+              <div class="spinners mx-auto text-center" *ngIf="load">
+                <div class="spinner-grow text-secondary ml-5" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
+              <p class="card-text text-center" style="font-weight: 800; font-size: 40px;">{{fund | currency }}</p>
+            </div>
+           
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+              <div class="card shadow mb-4" style="border-radius: 20px;">
+                <div class="card-body">
+
+                  <div class="spinners mx-auto text-center" *ngIf="load">
+                    <div class="spinner-grow text-secondary ml-5" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-secondary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-secondary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+
+                  <canvas baseChart 
+                  [datasets]="lineChartData" 
+                  [labels]="lineChartLabels" 
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors" 
+                  [legend]="lineChartLegend" 
+                  [chartType]="lineChartType" 
+                  [plugins]="lineChartPlugins">
+              </canvas>
+              
+                </div>
+              </div>
+
+            </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-md-6">
+        <div class="card shadow" style="border-radius: 20px;">
+          <div class="card-body">
+            <div class="card-header mb-2" style="background: none">
+              <p>LOANS</p>
+            </div>
+            <div class="mb-2">
+              <button mat-button class="card-title ml-5 mr-5" style="font-size: 15px; background-color: none;">Loan application status</button>
+              <button type="button" class="btn btn-secondary mx-4 float-end" style="border-radius: 50px;" (click)="getloan()">Check status</button>
+            </div>
+           <!-- <hr class="mb-3" style="border: 1px solid black"> -->
+          </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                  <div class="card shadow mt-3 mb-3" style="border-radius: 20px;">
+                    <div>
+                      <h6 class="m-4">RECENT TRANSACTIONS 
+                        <button mat-raised-button color="warn" class="float-end" (click)="viewalltransaction()">View all</button>
+                      </h6>
+                    </div>
+                      <div class="card-body" >
+                        <div class="spinners mx-auto text-center" *ngIf="load">
+                          <div class="spinner-grow text-secondary ml-5" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow text-secondary" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow text-secondary" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                        <div class="row mx-auto" style="font-size: 15px;">
+                            <div class="col-md-6 mb-4 mx-auto" *ngFor="let d of displays | paginate: { itemsPerPage: 4, currentPage: p}">
+                              {{d.name}} made to {{d.firstname}} {{d.lastname}}
+                            </div>
+                        </div>
+
+                      </div>
+            <pagination-controls class="mx-auto" hidden
+            (pageChange)="p = $event"
+           ></pagination-controls>
+                  </div>
+            </div>
+
+
+              <div class="card shadow" style="border-radius: 20px;">
+                <div class="card-body">
+                  <div class="table-responsive-sm col-md-12">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">Category</th>
+                          <th scope="col">Loan</th>
+                          <th scope="col">Repayment period</th>
+                          <th scope="col">Total repayment</th>
+                          <th scope="col">Date applied</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                        <tbody *ngFor="let item of loantrans | paginate: { itemsPerPage: 4, currentPage: p2}">
+                          <tr>
+                            <th scope="row"><ul style="list-style-type: circle;"><li></li></ul></th>
+                            <td>{{item.category}}</td>
+                            <td>{{item.amount | currency}}</td>
+                            <td>{{item.paybacktime}} @ {{item.interest}}%</td>
+                            <td>{{item.total | currency}}</td>
+                            <td>{{item.created_at | date :'fullDate'}}</td>
+                            <td>{{item.paid_status}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <pagination-controls class="mx-auto"
+                    (pageChange)="p2 = $event"
+                   ></pagination-controls>
+                </div>
+              </div>
+              
+          </div>
+
+      </div>
+
+
+      
+
+
+  </div>
+</div>
+<!-- </div> -->

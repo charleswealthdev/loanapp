@@ -1,0 +1,32 @@
+<div class="container mt-4 animate__animated animate__slideInUp">
+    <div class="row mx-auto justify-content-center">
+
+        <div class="col-md-6 mt-5">
+            <img src="../../assets/img/paymentdesign.jpg" class="img-fluid mt-5" style="width: 700px; height: 580px;border-radius: 20px;" alt="" srcset="">
+        </div>
+
+        <div class="col-md-6 mt-5">
+            <div class="card">
+                  <h1 class="card-title">Login here!</h1>
+                  <small class="card-subtitle">Enter your credentials and get access</small>
+                  <form class="card-form" #adminloginform=ngForm (ngSubmit)="onSubmit()">
+                      <div class="alert alert-danger text-center" [hidden]="!error">{{error}}</div>
+
+                      <label for="username">E-mail</label>
+                      <div class="card-input-container email">
+                          <input type="email" name="email" [(ngModel)]="form.email" class="form-control validate" placeholder="E-mail address" id="email" required>
+                      </div>
+
+                      <label for="password">Password</label>
+                      <div class="card-input-container password">
+                          <input type="password" name="password" [(ngModel)]="form.password" placeholder="Enter your password" id="password" required>
+                      </div>
+
+                      <button type="submit" class="card-button" [disabled]="!adminloginform.valid">Sign In <i *ngIf="load" class="fa fa-spinner fa-spin text-light ml-2"></i></button>
+                   
+                  </form>
+              </div>
+        </div>
+    </div>
+  </div>
+

@@ -1,0 +1,20 @@
+.chat {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.message {
+  /* border: 1px solid gray; */
+  overflow:hidden; word-spacing: -1px; 
+  margin: 5px;
+  padding: 5px;
+  width: 50%;
+}
+
+.message.is-sent {
+  /* background: cyan; */
+  align-self: flex-end;
+}
+.message.is-received {
+  /* background: pink; */
+}

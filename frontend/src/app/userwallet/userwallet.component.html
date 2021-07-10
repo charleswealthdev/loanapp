@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row mx-auto justify-content-center">
+          <div class="col-md-6">
+              <mat-card class="mt-5">
+                  <h5 class="mt-2 text-center">FUND WALLET</h5>
+                  <form class="example-form">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Enter Amount</mat-label>
+                        <span matPrefix><b>N</b>  &nbsp;</span>
+                        <input type="number" name="fund" [(ngModel)]="fund" matInput placeholder="30,000">
+                        <mat-icon matSuffix>mode_edit</mat-icon>
+                      </mat-form-field>
+                      <div class="mt-3">
+                          <button mat-raised-button class="btn btn-secondary" (click)="fundwallet()">FUND <i *ngIf="load" class="fas fa-spinner fa-pulse"></i> </button>
+                          <button mat-raised-button color="warn" class="float-end" [routerLink]="['/sidebar/dashboard']">CANCEL</button>
+                      </div>
+                    </form>
+              </mat-card>
+          </div>
+    </div>
+  </div>
+  

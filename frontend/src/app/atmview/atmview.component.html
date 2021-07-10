@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto text-center mt-5" *ngFor="let atm of atmArray">
+            <div class="card shadow">
+                <div class="logo float-start">
+                    <span class="fa fa-coins fa-2x m-3 float-start text-danger"><i class="m-1">cashloan</i></span>
+                    <span class="fa fa-wifi fa-2x m-3 float-end text-danger"></span>
+                </div>
+
+                <div>
+                    <span class="fas fa-microchip fa-2x m-3 float-start text-danger"></span>
+                </div>
+                <div>
+                    <p style="letter-spacing: 8px; font-size: 15px;">{{splittedcard_no}}</p>
+                </div>
+                <div>
+                    <h6 class="float-start m-1">{{atm.firstname | uppercase}}</h6>
+                    <h6 class="ms-auto m-1"><small>CVC:</small> {{atm.cvc}}<h6 class="float-end">{{atm.atm_type}}</h6></h6>
+                    <small class="float-end">Debit</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

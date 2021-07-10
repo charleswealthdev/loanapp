@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto text-center" *ngFor="let item of loancategoryarray">
+            
+            <div class="spinners mx-auto text-center" *ngIf="load">
+                <div class="spinner-grow text-secondary ml-5" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+
+            <div class="card shadow mt-5 p-3">
+                <div class="card-body">
+                        <h5>{{item.category}}</h5>
+                        <small>{{item.message}}</small>
+                        <p><b class="text-danger text-center">{{item.limits | currency}}</b></p>
+                        <div class="mt-3">
+                            <button mat-raised-button style="color:rgb(206, 11, 11);" (click)="viewloans(item)">View loans under this category</button>
+                        </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
