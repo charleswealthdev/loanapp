@@ -1,3 +1,5 @@
+import { DatabundlesComponent } from './airtimefolder/databundles/databundles.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 import { ContactComponent } from './loanfolder/contact/contact.component';
 import { ChatwithusComponent } from './loanfolder/chatwithus/chatwithus.component';
 import { LoantransactionsComponent } from './loanfolder/loantransactions/loantransactions.component';
@@ -46,7 +48,11 @@ import { AddloanComponent } from './adminfolder/addloan/addloan.component';
 import { AllcategoriesComponent } from './adminfolder/allcategories/allcategories.component';
 import { GetloanComponent } from './loanfolder/getloan/getloan.component';
 import { BillpaymentComponent } from './loanfolder/billpayment/billpayment.component';
-import { AirtimeComponent } from './airtime/airtime.component';
+import { AirtimeComponent } from './airtimefolder/airtime/airtime.component';
+import { NetworksComponent } from './airtimefolder/networks/networks.component';
+import { MtnComponent } from './airtimefolder/mtn/mtn.component';
+import { VtusComponent } from './airtimefolder/vtus/vtus.component';
+import { AirtimehistroyComponent } from './airtimefolder/airtimehistroy/airtimehistroy.component';
 
 
 const routes: Routes = [
@@ -74,6 +80,7 @@ const routes: Routes = [
   {path: 'sidebar', component: SidebarComponent, canActivate: [AfterLoginService], children: [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', component: UserDashboardComponent},
+    {path: 'profile', component: UserprofileComponent},
     {path: 'funds', component: FundwalletComponent},
     {path: 'transfer/:id', component: TransferComponent},
     {path: 'choosebank', component: ChoosebankComponent},
@@ -103,6 +110,11 @@ const routes: Routes = [
     {path: 'loantransactions', component: LoantransactionsComponent},
     {path: 'billpayment', component: BillpaymentComponent},
     {path: 'airtime', component: AirtimeComponent},
+    {path: 'networks', component: NetworksComponent},
+    {path: 'vtus/:networks', component: VtusComponent},
+    {path: 'airtime_history', component: AirtimehistroyComponent},
+    {path: 'mydata_bundle', component: DatabundlesComponent},
+    {path: 'mtn', component: MtnComponent},
     {path: 'chats', component: ChatwithusComponent},
     {path: 'contact', component: ContactComponent},
 

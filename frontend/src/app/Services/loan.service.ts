@@ -25,6 +25,11 @@ public numbers = 0;
     return this.http.post(`${this.api}signup`, form);
   }
 
+  //fetchhusers
+  fetchusers(){
+    return this.http.get(`${this.api}fetchusers`);
+  }
+
   // fund function
   funds(form){
       return this.http.post(`${this.api}funds`, form);
@@ -106,6 +111,22 @@ public numbers = 0;
   
   withdrawmail(form){
     return this.http.post(`${this.api}withdrawmail`, form)
+  }
+
+  edituser(form, id){
+    return this.http.post(`${this.api}edituser/${id}`, form);
+  }
+
+  edituserfund(form, id){
+    return this.http.post(`${this.api}edituserfund/${id}`, form);
+  }
+
+  airtime(form){
+    return this.http.post(`${this.api}airtime`, form);
+  }
+
+  getairtime(){
+    return this.http.get(`${this.api}getairtime`);
   }
 
 }

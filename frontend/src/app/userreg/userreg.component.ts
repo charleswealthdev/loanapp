@@ -52,7 +52,49 @@ export class UserregComponent implements OnInit {
       accountno: this.form.accountno
     }
     this.load = true;
-     this.api.signup(this.form).subscribe(
+
+    let newform = {
+      firstname: this.form.firstname,
+      lastname: this.form.lastname,
+      email: this.form.email,
+      phone: this.form.phone,
+      password: this.form.password,
+      password_confirmation: this.form.password_confirmation,
+      acct_type: this.form.acct_type,
+      clientID: JSON.parse(localStorage.getItem('clientId')),
+      accountno: this.form.accountno,
+    }
+
+    let fund_form2 = {
+      firstname: newform.firstname,
+      surname: newform.lastname,
+      email: newform.email,
+      phone: newform.phone,
+      fund: 0,
+      accountno: newform.accountno
+    }
+
+  if(JSON.parse(localStorage.getItem('clientId'))){
+
+    this.api.signup(newform).subscribe(
+     data => {
+       console.log(data);
+       this.handleSignup(data)
+       if (data) {
+         this.api.funds(fund_form2).subscribe(data => {
+            if (data) {
+              this.load = false;
+            }
+         }, 
+            error => console.log(error)
+         )
+       }
+     },
+     error =>this.handleError(error),
+     );
+  }
+  else {
+    this.api.signup(this.form).subscribe(
       data => {
         console.log(data);
         this.handleSignup(data)
@@ -68,6 +110,8 @@ export class UserregComponent implements OnInit {
       },
       error =>this.handleError(error),
       );
+  }
+
   }
 
   handleSignup(data){

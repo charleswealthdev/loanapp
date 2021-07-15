@@ -129,7 +129,7 @@ export class MyloansComponent implements OnInit {
         localStorage.setItem('requests', JSON.stringify(finds));
 
         // data.map((el) => {
-          let el = data.find((u) => u.loan_id == loan.loan_id && (u.id == this.loggedUser.id))
+          let el = data.find((u) => u.loan_id == loan.loan_id && (u.id == this.loggedUser.id) && (u.paid_status == "pending"))
           if(el){
             let dialogRef = this.dialog.open(AppliedialogComponent, {
               width: '450px',
@@ -151,12 +151,13 @@ export class MyloansComponent implements OnInit {
                       this.adminApi.applyforloan(userdetail).subscribe((data:any) => {
                         if(data){
                             this.adminApi.getrequests().subscribe((data:any) => {
-                                for (let i = 0; i < myarr.length; i++) {
-                                  const element = myarr[i];
+                              let checks = data.find((u) => u.randomId == randomId);
+                                // for (let i = 0; i < myarr.length; i++) {
+                                //   const element = myarr[i];
                                   
-                                  for (let t = 0; t < data.length; t++) {
-                                    const el = data[t];
-                                    if(el.randomId == element){
+                                //   for (let t = 0; t < data.length; t++) {
+                                //     const el = data[t];
+                                //     if(el.randomId == element){
                                //
                                       this.adminApi.appliedloanmail(userdetail).subscribe((data:any) => {
                                         if(data){
@@ -166,7 +167,7 @@ export class MyloansComponent implements OnInit {
                                     this.router.navigate(['/sidebar/dashboard']);
                                     localStorage.setItem('myrequests', JSON.stringify({id: this.loggedUser.id, category: loan.category, loanid: loan.loan_id}));
 
-                                    this.adminApi.editrequest(status, element).subscribe((data:any) => {
+                                    this.adminApi.editrequest(status, checks.randomId).subscribe((data:any) => {
                                       if(data){
                                         this.adminApi.approvedloanmail(userdetail).subscribe((data:any) => {
                                           if(data){
@@ -185,13 +186,13 @@ export class MyloansComponent implements OnInit {
                                   this.load = false;
                                 })
 
-                                    }
-                                      else {
+                                //     }
+                                //       else {
 
                                
-                                      }
-                                  }
-                                }
+                                //       }
+                                //   }
+                                // }
                             })
                      
                   }

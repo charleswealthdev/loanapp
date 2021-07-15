@@ -71,10 +71,20 @@ import { LoantransactionsComponent } from './loanfolder/loantransactions/loantra
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppliedialogComponent } from './loanfolder/appliedialog/appliedialog.component';
 import { BillpaymentComponent } from './loanfolder/billpayment/billpayment.component';
-import { AirtimeComponent } from './airtime/airtime.component';
 import { ContactComponent } from './loanfolder/contact/contact.component';
 import { ChatwithusComponent } from './loanfolder/chatwithus/chatwithus.component';
-      
+import { PaymentdialogComponent } from './loanfolder/paymentdialog/paymentdialog.component';
+import { MessagesComponent } from './adminfolder/messages/messages.component';
+import { NetworksComponent } from './airtimefolder/networks/networks.component';
+import { MtnComponent } from './airtimefolder/mtn/mtn.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { VtusComponent } from './airtimefolder/vtus/vtus.component';
+import { SuccessdialogComponent } from './airtimefolder/successdialog/successdialog.component';
+import { AirtimehistroyComponent } from './airtimefolder/airtimehistroy/airtimehistroy.component';
+import { DatabundlesComponent } from './airtimefolder/databundles/databundles.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,10 +136,17 @@ import { ChatwithusComponent } from './loanfolder/chatwithus/chatwithus.componen
     LoantransactionsComponent,
     AppliedialogComponent,
     BillpaymentComponent,
-    AirtimeComponent,
     ContactComponent,
     ChatwithusComponent,
-    // UsersidebarComponent
+    PaymentdialogComponent,
+    MessagesComponent,
+    NetworksComponent,
+    MtnComponent,
+    UserprofileComponent,
+    VtusComponent,
+    SuccessdialogComponent,
+    AirtimehistroyComponent,
+    DatabundlesComponent,
   ],
   imports: [
     BrowserModule,
@@ -162,6 +179,7 @@ import { ChatwithusComponent } from './loanfolder/chatwithus/chatwithus.componen
     MatTableModule,
     MatTabsModule,
     Ng2SearchPipeModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

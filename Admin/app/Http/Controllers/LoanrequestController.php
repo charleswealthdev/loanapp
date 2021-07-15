@@ -28,36 +28,36 @@ class LoanrequestController extends Controller
 
       public function checkpaypalkey(Request $request, $id){
 
-        $url = 'https://api.paystack.co/transaction/verify/'.$request->reference;
+        // $url = 'https://api.paystack.co/transaction/verify/'.$request->reference;
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt(
-          $ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer sk_test_0db91341e570f1c85199ecc1ee08720db0c1b5bc']
-        );
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt(
+        //   $ch, CURLOPT_HTTPHEADER, [
+        //     'Authorization: Bearer sk_test_0db91341e570f1c85199ecc1ee08720db0c1b5bc']
+        // );
         //send request
-        $requests = curl_exec($ch);
+        // $requests = curl_exec($ch);
         //close connection
-        curl_close($ch);
+        // curl_close($ch);
         //declare an array that will contain the result 
-        $result = array();
+        // $result = array();
         
-        if ($requests) {
-          $result = json_decode($requests, true);
-        }
+        // if ($requests) {
+        //   $result = json_decode($requests, true);
+        // }
         
-        if (array_key_exists('data', $result) && array_key_exists('status', $result['data']) && ($result['data']['status'] === 'success')) {
+        // if (array_key_exists('data', $result) && array_key_exists('status', $result['data']) && ($result['data']['status'] === 'success')) {
                 return ModelsRequest::where('request_id', $id)->update(
             [
                 'paid_status' => $request->status,
                 'updated_at' =>  Carbon::now()
             ]
         );
-        }else{
-          return "Transaction was unsuccessful";
-        }
+        // }else{
+        //   return "Transaction was unsuccessful";
+        // }
 
     }
 

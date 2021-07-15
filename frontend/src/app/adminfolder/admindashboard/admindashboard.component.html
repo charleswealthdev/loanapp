@@ -137,7 +137,7 @@
                                               <th scope="col">Date Added</th>
                                             </tr>
                                           </thead>
-                                            <tbody *ngFor="let item of categoryarray | filter:filterTerm | paginate: { itemsPerPage: 4, currentPage: p}">
+                                            <tbody *ngFor="let item of categoryarray | paginate: { itemsPerPage: 4, currentPage: p}">
                                               <tr>
                                                 <th scope="row"><ul style="list-style-type: circle;"><li></li></ul></th>
                                                 <td>{{item.category}}</td>
@@ -186,7 +186,7 @@
                               <th scope="col">Status</th>
                             </tr>
                           </thead>
-                            <tbody *ngFor="let item of requestArray | filter:filterTerm | paginate: { itemsPerPage: 4, currentPage: p}">
+                            <tbody *ngFor="let item of requestArray | paginate: { itemsPerPage: 4, currentPage: p}">
                               <tr>
                                 <td scope="row"><ul style="list-style-type: circle;"><li></li></ul></td>
                                 <td>{{item.firstname}} {{item.lastname}}</td>

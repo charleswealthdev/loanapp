@@ -1,0 +1,11 @@
+<h4 mat-dialog-title class="text-center p-2">You're about to pay <b class="text-danger">{{amount | currency}}</b> worth loan (Your debt)</h4>
+<p class="text-center">Input your pin for verification</p>
+<div class="row">
+    <mat-form-field class="example-full-width mx-auto col-md-4">
+        <mat-label>ENTER YOUR 4 DIGIT PIN</mat-label>
+        <input matInput name="pin" minlength="4" maxlength="4" [(ngModel)]="pin" class="text-center" style="letter-spacing: 10px;">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" class="mx-auto mb-3" (click)="paybills()">Proceed</button>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto text-center">
+            <h3 class="text-center mt-2">AIRTIME HISTORY</h3>
+            <div class="table-responsive-sm col-md-12 mt-2">
+                <mat-form-field class="example-full-width col-md-6 float-start m-2">
+                    <mat-label>Search...</mat-label>
+                    <input matInput [(ngModel)]="filterTerm" placeholder="">
+                  </mat-form-field>
+                <table class="table mt-1 p-3">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Beneficiary</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Network</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of checkhistory | filter:filterTerm | paginate: { itemsPerPage: 8, currentPage: p}">
+                        <tr>
+                            <th scope="row"><ul style="list-style-type: circle;"><li></li></ul></th>
+                            <td>{{item.phone_no}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.network | uppercase}} VTU</td>
+                            <td>{{item.created_at | date :'fullDate'}}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls class="mx-auto"
+                  (pageChange)="p = $event"
+                 ></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

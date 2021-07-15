@@ -28,6 +28,7 @@ Route::group([
 
     Route::post('login', 'App\Http\Controllers\AuthController@login');
     Route::post('signup', 'App\Http\Controllers\AuthController@signup');
+    // Route::get('fetchusers', 'App\Http\Controllers\AuthController@getallusers');
 
     Route::post('adminlogin', 'App\Http\Controllers\AdminController@adminlogin');
     Route::post('adminsignup', 'App\Http\Controllers\AdminController@adminsignup');
@@ -39,8 +40,15 @@ Route::group([
     Route::post('funds', 'App\Http\Controllers\FundsController@funds');
     
     Route::get('getfund', 'App\Http\Controllers\FundsController@getfund');
+    Route::get('fetchusers', 'App\Http\Controllers\FundsController@getallusers');
+   
+    Route::post('airtime', 'App\Http\Controllers\AirtimeController@addAirtime');
+    Route::get('getairtime', 'App\Http\Controllers\AirtimeController@getairtimes');
     
     Route::post('edit/{id}', 'App\Http\Controllers\FundsController@editFund');
+
+    Route::post('edituser/{id}', 'App\Http\Controllers\FundsController@editUserProfile');
+    Route::post('edituserfund/{id}', 'App\Http\Controllers\FundsController@editFundProfile');
     
     Route::post('transaction', 'App\Http\Controllers\TransactionController@store');
     

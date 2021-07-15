@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto text-center mt-5">
+            <h3 class="text-center">{{airtime | uppercase}} VTU</h3>
+            <div class="col-md-6 mx-auto text-center">
+                <h6 class="text-center mt-3 mb-3">SELECT ACCOUNT</h6>
+                <div class="row" >
+                    <div class="col-md-12 mt-3 p-3" *ngFor="let item of checksfund" style="border-radius: 50px; background-color: #776d6d; color: #fff; cursor: pointer;" (click)="chooseaccount(item)">
+                        <h5 class="float-start">{{item.firstname}} {{item.surname}} </h5>
+                        <h5 class="float-end">{{item.fund | currency}}</h5>
+                    </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

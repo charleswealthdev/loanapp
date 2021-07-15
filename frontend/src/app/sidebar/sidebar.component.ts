@@ -77,6 +77,7 @@ export class SidebarComponent {
       this.token.remove();
       this.Auth.changeAutho(false);
       this.route.navigate(['/login']);
+      localStorage.removeItem('clientId')
   }
 
   displaynotification(){
@@ -137,6 +138,16 @@ export class SidebarComponent {
       return;
     } else {
       this.route.navigate(['/sidebar/chats']);
+    }
+  }
+
+  viewprofile(){
+    let loggedUser = JSON.parse(localStorage.getItem('loggedUser')).user.id || [];
+
+    if(!loggedUser){
+        return;
+    } else{
+      this.route.navigate(['/sidebar/profile']);
     }
   }
 

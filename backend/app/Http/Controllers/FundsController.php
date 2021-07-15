@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Funds;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class FundsController extends Controller
 {
@@ -38,6 +39,12 @@ class FundsController extends Controller
     public function getfund(){
         $allfunds = Funds::get();
         return $allfunds;
+    }
+
+    
+    public function getallusers()
+    {
+        return User::get();
     }
 
     // public function editFund($id){
@@ -77,6 +84,28 @@ class FundsController extends Controller
     {
         $updateitem = Funds::where('id', $id)->first();
         $updateitem->fund = $request->fund;
+        $updateitem->save();
+        return $updateitem;
+    }
+
+    public function editFundProfile(Request $request, $id)
+    {
+        $updateitem = Funds::where('id', $id)->first();
+        $updateitem->firstname = $request->firstname;
+        $updateitem->surname = $request->surname;
+        $updateitem->email = $request->email;
+        $updateitem->phone = $request->phone;
+        $updateitem->save();
+        return $updateitem;
+    }
+
+    public function editUserProfile(Request $request, $id)
+    {
+        $updateitem = User::where('id', $id)->first();
+        $updateitem->firstname = $request->firstname;
+        $updateitem->lastname = $request->lastname;
+        $updateitem->email = $request->email;
+        $updateitem->phone = $request->phone;
         $updateitem->save();
         return $updateitem;
     }

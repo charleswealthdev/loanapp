@@ -37,7 +37,7 @@ Route::group([
     // For loan category
     Route::post('category', [CategoryController::class, "addcategory"]);
     Route::get('getcategories', [CategoryController::class, "index"]);
-    // eddit router
+    // edit router
     Route::post('edit/{id}', [CategoryController::class, "editcategory"]);
     // delete router
     Route::delete('/delete/{id}', [CategoryController::class, "deletecategory"]);
@@ -56,6 +56,7 @@ Route::group([
     Route::post('loanrequestmail', [MailController::class, "loanrequest"]);
     Route::post('approvedloan', [MailController::class, "approvedloan"]);
     Route::post('appreview', [MailController::class, "contactus"]);
+    Route::post('loanpayment', [MailController::class, "paymentmail"]);
 
     // for loan transactions
     Route::post('posttransactions', [LoantransController::class, "addtoloan"]);

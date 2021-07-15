@@ -110,4 +110,8 @@ export class OfferloanService {
     return this.http.post<any>(`${this.api}appreview`, form);
   }
 
+  loanpayment(form){
+    return this.http.post<any>(`${this.api}loanpayment`, form);
+  }
+
 }
