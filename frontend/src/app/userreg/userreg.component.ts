@@ -49,6 +49,7 @@ export class UserregComponent implements OnInit {
       email: this.form.email,
       phone: this.form.phone,
       fund: 0,
+      loan: 0,
       accountno: this.form.accountno
     }
     this.load = true;
@@ -71,6 +72,7 @@ export class UserregComponent implements OnInit {
       email: newform.email,
       phone: newform.phone,
       fund: 0,
+      loan: 0,
       accountno: newform.accountno
     }
 

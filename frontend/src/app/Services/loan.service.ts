@@ -50,6 +50,11 @@ public numbers = 0;
     return this.http.post(`${this.api}edit/${id}`, form);
   }
 
+   // edit funds
+   editfundloan(id, form){
+    return this.http.post(`${this.api}editfundloan/${id}`, form);
+  }
+
   // transaction function
   transaction(form){
     return this.http.post(`${this.api}transaction`, form)

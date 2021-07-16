@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row p-4">
-        <div class="col-md-8 mx-auto text-center mt-1">
+        <div class="col-md-6 mx-auto text-center mt-1">
                 <div class="card shadow p-4 mt-5" style="border-radius: 10px;">
                     <h5><b>STATUS</b></h5>
 
@@ -34,8 +34,8 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
-                               <h5 class="float-start">Repayment period: {{paybacktime}}</h5>
+                            <div class="col-md-6 float-start">
+                               <h5 class="">Repayment period: {{paybacktime}}</h5>
                             </div>
                             <div class="col-md-6">
                                 <button class="float-end col-md-5 text-danger" mat-raised-button>{{status | uppercase}}</button>
@@ -52,11 +52,47 @@
                 </div>
         </div>
 
+
+        <div class="col-md-6 mx-auto text-center mt-1">
+            <div class="card shadow p-4 mt-5" style="border-radius: 10px;">
+               
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="text-center">TOTAL AMOUNT OF LOAN</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <h3 class="text-center text-danger">{{totalamount | currency}}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="text-center">TOTAL AMOUNT OF LOAN INTEREST</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <h3 class="text-center text-danger">{{totalinterest | currency}}</h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mt-4">
+                            <button mat-raised-button (click)="addToBalance()" class="float-end" color="warn">Add to balance <i *ngIf="load" class="fas fa-spinner fa-pulse"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <div class="row" *ngIf="checks">
-            <div class="col-md-6 mx-auto text-center mt-4">
-                <button mat-raised-button class="mx-auto" color="warn" (click)="getnewLoan()">Apply for a new loan</button>
+            <div class="col-md-12 mx-auto text-center mt-4">
+                <button mat-raised-button class="mx-auto col-md-9 p-2" color="warn" (click)="getnewLoan()">APPLY FOR A NEW LOAN</button>
             </div>
     </div>
 </div>

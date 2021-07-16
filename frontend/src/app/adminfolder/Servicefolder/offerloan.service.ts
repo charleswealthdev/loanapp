@@ -86,6 +86,11 @@ export class OfferloanService {
     return this.http.post<any>(`${this.api}editrequest/${id}`, form);
   }
 
+  //allocation edit
+  public editallocation(form, id) {
+    return this.http.post<any>(`${this.api}editallocation/${id}`, form);
+  }
+
   editloans(form, randomId){
     return this.http.post<any>(`${this.api}editloan/${randomId}`, form);
   }

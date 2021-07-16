@@ -5,11 +5,14 @@ import { OfferloanService } from 'src/app/adminfolder/Servicefolder/offerloan.se
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-myloans',
   templateUrl: './myloans.component.html',
-  styleUrls: ['./myloans.component.css']
+  styleUrls: ['./myloans.component.css'],
+  providers: [CurrencyPipe]
+
 })
 export class MyloansComponent implements OnInit {
 
@@ -19,6 +22,10 @@ export class MyloansComponent implements OnInit {
   public newarray = [];
   public categoryarray = [];
   public loggedUser = JSON.parse(localStorage.loggedUser).user;
+  totalamount: any;
+  totalinterest: any;
+  alltotals: any;
+  chekuserfund: any;
   // public myrequest = JSON.parse(localStorage.getItem('requests')) || [];
 
   constructor(
@@ -26,10 +33,12 @@ export class MyloansComponent implements OnInit {
     public adminApi: OfferloanService,
     public api: LoanService,
     public actroute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public currencypipe: CurrencyPipe
   ) { }
 
   ngOnInit(): void {
+
     let {category} = this.actroute.snapshot.params;
     let myrequests = JSON.parse(localStorage.getItem('myrequests')) || [];
     this.adminApi.getcategories().subscribe((data:any) =>{
@@ -49,7 +58,7 @@ export class MyloansComponent implements OnInit {
                 status: "Applied",
                 created_at: el.created_at,
              }
-            //  let myData = {... this.newarray, myObj}
+
              this.filteredlist.push(myObj);
            } else {
             let myObjs = {
@@ -63,29 +72,26 @@ export class MyloansComponent implements OnInit {
               status: "Apply now",
               created_at: el.created_at,
            }
-          //  let myData = {...data, myObj}
              this.filteredlist.push(myObjs);
            }
         })
-        // let filtereds = data.find((u) => u.id == this.loggedUser.id);
-        // let findapplied = data.find((u) => u.id == this.loggedUser.id);
-        // console.log(findapplied)
-        // if(findapplied.loan_id === +myrequests.loanid && findapplied.id === +this.loggedUser.id){
-        //   this.checloan = "Already applied, pay up to renew this";
-        // } else{
-        // this.checloan = "Apply now";
-        // }
+
       })
    })  
+   this.adminApi.getrequests().subscribe((data:any) => {
+    let checkstatus = data.filter((u) => u.id == this.loggedUser.id && u.paid_status === "pending");
+    checkstatus.reduce((a, b) => {
+      this.totalamount = +a.amount + +b.amount;
+    })
+    checkstatus.reduce((a, b) => {
+      this.totalinterest = +a.total + +b.total;
+    })
+    this.alltotals = this.totalamount + this.totalinterest;
+  })
 
-  //  this.adminApi.getrequests().subscribe((data:any) => {
-  //     let datas = data.find((u) => u.id == this.loggedUser.id);
-  //     if((datas.user_status == "applied") && (datas.category == this.myrequest.category) && (datas.request_id == this.myrequest.request_id)){
-  //       this.load = false;
-  //     } else {
-  //       this.load = true;
-  //     }
-  //  })
+  this.api.getfunds().subscribe((data:any) => {
+    this.chekuserfund = data.find((u) => u.id = this.loggedUser.id);
+  })
 
   }
 
@@ -111,6 +117,7 @@ export class MyloansComponent implements OnInit {
       status: 'pending',
       user_status: 'applied',
       paid_status: 'pending',
+      allocation: 'not allocated',
       randomId,
     }
     // let editloan = {id: this.loggedUser.id, status: 'applied'};
@@ -120,96 +127,101 @@ export class MyloansComponent implements OnInit {
       name: "Loan request"
     }
 
-      this.adminApi.getrequests().subscribe((data:any) => {
-        let finds = data.find(u => u.id == this.loggedUser.id && u.status == "pending")
-        // console.log(finds);
-        let status = {
-          status: 'approved'
-        }
-        localStorage.setItem('requests', JSON.stringify(finds));
-
-        // data.map((el) => {
-          let el = data.find((u) => u.loan_id == loan.loan_id && (u.id == this.loggedUser.id) && (u.paid_status == "pending"))
-          if(el){
-            let dialogRef = this.dialog.open(AppliedialogComponent, {
-              width: '450px',
-              data: {message: 'You cannot apply for this loan now till you renew your debt!'}
-            });
-          } 
-         
-          else {
-            let dialogRef = this.dialog.open(ProcessingloanComponent, {
-              width: '250px',
-            });
-          this.adminApi.getloans().subscribe((data:any) => {
-            let loanId = data.find(u => u);
-            // this.adminApi.editloans(editloan, loan.loan_id).subscribe((data:any) => {
-              this.api.notifications(details).subscribe((data:any) => {
-                if(data){
-                  this.adminApi.posttransactions(userdetail).subscribe((data:any) => {
-                    if(data){
-                      this.adminApi.applyforloan(userdetail).subscribe((data:any) => {
-                        if(data){
-                            this.adminApi.getrequests().subscribe((data:any) => {
-                              let checks = data.find((u) => u.randomId == randomId);
-                                // for (let i = 0; i < myarr.length; i++) {
-                                //   const element = myarr[i];
-                                  
-                                //   for (let t = 0; t < data.length; t++) {
-                                //     const el = data[t];
-                                //     if(el.randomId == element){
-                               //
-                                      this.adminApi.appliedloanmail(userdetail).subscribe((data:any) => {
-                                        if(data){
-            
-                                          setTimeout(() => {
-                                    dialogRef.close();
-                                    this.router.navigate(['/sidebar/dashboard']);
-                                    localStorage.setItem('myrequests', JSON.stringify({id: this.loggedUser.id, category: loan.category, loanid: loan.loan_id}));
-
-                                    this.adminApi.editrequest(status, checks.randomId).subscribe((data:any) => {
-                                      if(data){
-                                        this.adminApi.approvedloanmail(userdetail).subscribe((data:any) => {
-                                          if(data){
-                                            // 
-                                          }
-                                        }, error => {
-                                          this.load = false;
-                                        })
-                                        }
-                                      })
-
-                                  }, 100);
-            
-                                  }
-                                }, error => {
-                                  this.load = false;
-                                })
-
-                                //     }
-                                //       else {
-
-                               
-                                //       }
-                                //   }
-                                // }
-                            })
-                     
-                  }
-                }, error => {
-                  this.load = false;
-                })
-              }
-            })
+    if(this.alltotals >= +this.chekuserfund.fund){
+        return;
+    } else{
+        this.adminApi.getrequests().subscribe((data:any) => {
+          let finds = data.find(u => u.id == this.loggedUser.id && u.status == "pending")
+          // console.log(finds);
+          let status = {
+            status: 'approved'
           }
+          localStorage.setItem('requests', JSON.stringify(finds));
+    
+          // data.map((el) => {
+            let el = data.find((u) => u.loan_id == loan.loan_id && (u.id == this.loggedUser.id) && (u.paid_status == "pending"))
+            if(el){
+              let dialogRef = this.dialog.open(AppliedialogComponent, {
+                width: '450px',
+                data: {message: 'You cannot apply for this loan now till you renew your debt!'}
+              });
+            } 
+           
+            else {
+              let dialogRef = this.dialog.open(ProcessingloanComponent, {
+                width: '250px',
+              });
+            this.adminApi.getloans().subscribe((data:any) => {
+              let loanId = data.find(u => u);
+              // this.adminApi.editloans(editloan, loan.loan_id).subscribe((data:any) => {
+                this.api.notifications(details).subscribe((data:any) => {
+                  if(data){
+                    this.adminApi.posttransactions(userdetail).subscribe((data:any) => {
+                      if(data){
+                        this.adminApi.applyforloan(userdetail).subscribe((data:any) => {
+                          if(data){
+                              this.adminApi.getrequests().subscribe((data:any) => {
+                                let checks = data.find((u) => u.randomId == randomId);
+                                  // for (let i = 0; i < myarr.length; i++) {
+                                  //   const element = myarr[i];
+                                    
+                                  //   for (let t = 0; t < data.length; t++) {
+                                  //     const el = data[t];
+                                  //     if(el.randomId == element){
+                                 //
+                                        this.adminApi.appliedloanmail(userdetail).subscribe((data:any) => {
+                                          if(data){
+              
+                                            setTimeout(() => {
+                                      dialogRef.close();
+                                      this.router.navigate(['/sidebar/dashboard']);
+                                      localStorage.setItem('myrequests', JSON.stringify({id: this.loggedUser.id, category: loan.category, loanid: loan.loan_id}));
+    
+                                      this.adminApi.editrequest(status, checks.randomId).subscribe((data:any) => {
+                                        if(data){
+                                          this.adminApi.approvedloanmail(userdetail).subscribe((data:any) => {
+                                            if(data){
+                                              // 
+                                            }
+                                          }, error => {
+                                            this.load = false;
+                                          })
+                                          }
+                                        })
+    
+                                    }, 100);
+              
+                                    }
+                                  }, error => {
+                                    this.load = false;
+                                  })
+    
+                                  //     }
+                                  //       else {
+    
+                                 
+                                  //       }
+                                  //   }
+                                  // }
+                              })
+                       
+                    }
+                  }, error => {
+                    this.load = false;
+                  })
+                }
+              })
+            }
+      })
+      // })
     })
+    
+    }
     // })
-  })
+    
+    })
+    }
 
-}
-// })
-
-})
 
 
 

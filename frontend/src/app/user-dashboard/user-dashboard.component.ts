@@ -118,7 +118,7 @@ export class UserDashboardComponent {
          this.fundArr.map((el) => {
            if (el.email === loggedUser.user.email) 
            {
-             this.fund = +el.fund;
+             this.fund = +el.fund + +el.loan;
            }
          })
       },
@@ -140,7 +140,6 @@ export class UserDashboardComponent {
     })
 
   }
-
    
   withdrawview(){
      this.router.navigate([`/sidebar/withdraw`]);
