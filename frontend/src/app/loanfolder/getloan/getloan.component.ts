@@ -20,7 +20,7 @@ export class GetloanComponent implements OnInit {
   public paybacktime;
   public status;
   public load = false;
-  totalamount: any;
+  totalamount = 0;
   public totalinterest;
   alltotals: any;
   chekuserfund: any;
@@ -61,25 +61,23 @@ export class GetloanComponent implements OnInit {
       })
 
       this.adminApi.getrequests().subscribe((data:any) => {
-        let myamount = [];
         let mytotal = [];
         let checkstatus = data.filter((u) => u.id == this.id && u.paid_status == "pending");
-
         checkstatus.map((el) => {
-    
            if(el.allocation === "not allocated"){
+             let myamountarray = [];
+             myamountarray.push(+el.amount);  
              let reducer = (acc, cur) => {
-               return acc + (Number(cur.amount));
+               return acc + (Number(cur));
               };
-          
-              this.totalamount  = checkstatus.reduce(reducer, 0);
+              this.totalamount  = myamountarray.reduce(reducer, 0);
            } 
-           else if(el.allocation === "allocated"){
-              this.totalamount = 0;
-              let reducerInterest = (acc, cur) => {
-                return acc + (Number(cur.total));
-               };
-               this.totalinterest = checkstatus.reduce(reducerInterest, 0);
+           else{
+             mytotal.push(+el.total);
+             let reducerInterest = (acc, cur) => {
+               return acc + (Number(cur.total));
+              };
+            this.totalinterest = checkstatus.reduce(reducerInterest, 0);
            }
         })
 
@@ -104,10 +102,10 @@ export class GetloanComponent implements OnInit {
       if(this.totalinterest >= mycheck.fund){
         console.log("no loan again")
       } else {
-        console.log("you can  check in")
+        this.router.navigate(['/sidebar/listofloans']);
+        // console.log("you can check in")
       }
     })
-    // this.router.navigate(['/sidebar/listofloans']);
   }
 
   addToBalance(){

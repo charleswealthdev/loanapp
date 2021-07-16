@@ -14,6 +14,8 @@ export class LoantransactionsComponent implements OnInit {
   public loanlists = [];
   p: number = 1;
   filterTerm: string;
+  totalamount = 0;
+  totalinterest = 0;
 
   constructor(
     public api: LoanService,
@@ -26,7 +28,28 @@ export class LoantransactionsComponent implements OnInit {
         data.map((el) => {
           if(el.status == "pending" && el.id == this.loggedUser.id){
            return;
-          } else if(el.status == "approved" && el.id == this.loggedUser.id){
+          }  
+          else if((el.status == "approved") && (el.paid_status == "pending") && (el.id == this.loggedUser.id)){
+            let totalunpaidloan = [];
+            let totalunpaidloaninterest = [];
+            console.log(+el.amount)
+            console.log(+el.total)
+            totalunpaidloan.push(+el.amount);
+            totalunpaidloaninterest.push(+el.total);
+
+            let reduceramount = (acc, cur) => {
+              return acc + (Number(cur));
+            };
+
+            this.totalamount = totalunpaidloan.reduce(reduceramount, 0);
+            let reducerInterest = (acc, cur) => {
+              return acc + (Number(cur));
+            };
+
+            this.totalinterest = totalunpaidloaninterest.reduce(reducerInterest, 0);
+            this.loanlists.push(el)
+          }
+           else if(el.status == "approved" && el.id == this.loggedUser.id){
             this.loanlists.push(el)
           }
         })

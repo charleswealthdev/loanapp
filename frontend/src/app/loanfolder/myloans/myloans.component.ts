@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CurrencyPipe } from '@angular/common';
+import { MaximumdialogComponent } from '../maximumdialog/maximumdialog.component';
 
 @Component({
   selector: 'app-myloans',
@@ -21,7 +22,7 @@ export class MyloansComponent implements OnInit {
   public checloan;
   public newarray = [];
   public categoryarray = [];
-  public loggedUser = JSON.parse(localStorage.loggedUser).user;
+  public loggedUser = JSON.parse(localStorage.getItem('loggedUser')).user || [];
   totalamount: any;
   totalinterest: any;
   alltotals: any;
@@ -80,17 +81,27 @@ export class MyloansComponent implements OnInit {
    })  
    this.adminApi.getrequests().subscribe((data:any) => {
     let checkstatus = data.filter((u) => u.id == this.loggedUser.id && u.paid_status === "pending");
-    checkstatus.reduce((a, b) => {
-      this.totalamount = +a.amount + +b.amount;
-    })
-    checkstatus.reduce((a, b) => {
-      this.totalinterest = +a.total + +b.total;
-    })
-    this.alltotals = this.totalamount + this.totalinterest;
+    
+    if(checkstatus){
+      checkstatus.map((el) => {
+         if(el.allocation === "allocated"){
+          let reducerInterest = (acc, cur) => {
+            return acc + (Number(cur.total));
+           };
+           this.totalinterest = checkstatus.reduce(reducerInterest, 0)
+
+           console.log(this.totalinterest);
+         } else {
+
+         }
+      })
+    } else {
+       console.log("hello there!")
+    }
   })
 
   this.api.getfunds().subscribe((data:any) => {
-    this.chekuserfund = data.find((u) => u.id = this.loggedUser.id);
+    this.chekuserfund = data.find((u) => u.id == this.loggedUser.id);
   })
 
   }
@@ -100,7 +111,7 @@ export class MyloansComponent implements OnInit {
     let randomId =  Math.floor(1000 + Math.random() * 9000);
     myarr.push(randomId);
     localStorage.setItem('randomId', JSON.stringify(myarr));
-    
+
     let userdetail = {
       id: this.loggedUser.id,
       loan_id: loan.loan_id,
@@ -120,25 +131,30 @@ export class MyloansComponent implements OnInit {
       allocation: 'not allocated',
       randomId,
     }
-    // let editloan = {id: this.loggedUser.id, status: 'applied'};
-    
+
     let details = {
       id : this.loggedUser.id,
       name: "Loan request"
     }
-
-    if(this.alltotals >= +this.chekuserfund.fund){
+    
+    this.api.getfunds().subscribe((data:any) => {
+      let chekuserfund = data.find((u) => u.id == this.loggedUser.id);
+       let mytotalinterest = +loan.total + +this.totalinterest;
+    if(mytotalinterest >= +chekuserfund.fund){
+        this.dialog.open(MaximumdialogComponent, {
+            width: '450px',
+            data: {message: 'Your maximum loan has been reached for this particular loan option', paraMessage: 'You can try out other ones'}
+        });
         return;
+
     } else{
         this.adminApi.getrequests().subscribe((data:any) => {
           let finds = data.find(u => u.id == this.loggedUser.id && u.status == "pending")
-          // console.log(finds);
           let status = {
             status: 'approved'
           }
           localStorage.setItem('requests', JSON.stringify(finds));
     
-          // data.map((el) => {
             let el = data.find((u) => u.loan_id == loan.loan_id && (u.id == this.loggedUser.id) && (u.paid_status == "pending"))
             if(el){
               let dialogRef = this.dialog.open(AppliedialogComponent, {
@@ -162,13 +178,7 @@ export class MyloansComponent implements OnInit {
                           if(data){
                               this.adminApi.getrequests().subscribe((data:any) => {
                                 let checks = data.find((u) => u.randomId == randomId);
-                                  // for (let i = 0; i < myarr.length; i++) {
-                                  //   const element = myarr[i];
-                                    
-                                  //   for (let t = 0; t < data.length; t++) {
-                                  //     const el = data[t];
-                                  //     if(el.randomId == element){
-                                 //
+                           
                                         this.adminApi.appliedloanmail(userdetail).subscribe((data:any) => {
                                           if(data){
               
@@ -195,14 +205,6 @@ export class MyloansComponent implements OnInit {
                                   }, error => {
                                     this.load = false;
                                   })
-    
-                                  //     }
-                                  //       else {
-    
-                                 
-                                  //       }
-                                  //   }
-                                  // }
                               })
                        
                     }
@@ -213,14 +215,14 @@ export class MyloansComponent implements OnInit {
               })
             }
       })
-      // })
     })
     
-    }
-    // })
-    
+      }
     })
+
+    //else statement ends here
     }
+  })
 
 
 
