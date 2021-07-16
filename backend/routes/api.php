@@ -49,6 +49,7 @@ Route::group([
 
     Route::post('edituser/{id}', 'App\Http\Controllers\FundsController@editUserProfile');
     Route::post('edituserfund/{id}', 'App\Http\Controllers\FundsController@editFundProfile');
+    Route::post('editfundloan/{id}', 'App\Http\Controllers\FundsController@editFundloan');
     
     Route::post('transaction', 'App\Http\Controllers\TransactionController@store');
     

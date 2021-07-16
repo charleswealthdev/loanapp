@@ -31,6 +31,7 @@ class FundsController extends Controller
         $fund->email = $request->email;
         $fund->phone = $request->phone;
         $fund->fund = $request->fund;
+        $fund->loan = $request->loan;
         $fund->accountno = $request->accountno;
         $fund->save();
         return $fund;
@@ -84,6 +85,14 @@ class FundsController extends Controller
     {
         $updateitem = Funds::where('id', $id)->first();
         $updateitem->fund = $request->fund;
+        $updateitem->save();
+        return $updateitem;
+    }
+
+    public function editFundloan(Request $request, $id)
+    {
+        $updateitem = Funds::where('id', $id)->first();
+        $updateitem->loan = $request->loan;
         $updateitem->save();
         return $updateitem;
     }

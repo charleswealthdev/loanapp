@@ -21,6 +21,7 @@ class Funds extends Model
         'email',
         'phone',
         'fund',
+        'loan',
         'accountno'
     ];
 
