@@ -60,16 +60,17 @@ export class SidebarComponent {
     })
     
     let loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
-    this.api.fetch_atms().subscribe(data => {
-       this.arrays = data;
-       this.arrays.filter((u) => {
-         if(u.id == loggedUser.user.id){
-            this.showtab = false;
-         } else {
-           this.showtab = true
-         }
-       });
+
+    this.api.fetch_atms().subscribe((data:any) => {
+      let myatmcheck = data.find((u) => u.id == loggedUser.user.id);
+      if(myatmcheck){
+        this.showtab = false;
+      } else{
+        this.showtab = true
+      }
+    
     })
+
   }
   
   logout(event){
@@ -78,6 +79,7 @@ export class SidebarComponent {
       this.Auth.changeAutho(false);
       this.route.navigate(['/login']);
       localStorage.removeItem('clientId')
+      localStorage.removeItem('loggedUser')
   }
 
   displaynotification(){

@@ -50,6 +50,7 @@ export class UserregComponent implements OnInit {
       phone: this.form.phone,
       fund: 0,
       loan: 0,
+      total_balance: 0,
       accountno: this.form.accountno
     }
     this.load = true;
@@ -73,6 +74,7 @@ export class UserregComponent implements OnInit {
       phone: newform.phone,
       fund: 0,
       loan: 0,
+      total_balance: 0,
       accountno: newform.accountno
     }
 

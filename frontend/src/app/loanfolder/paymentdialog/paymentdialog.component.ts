@@ -29,29 +29,45 @@ export class PaymentdialogComponent implements OnInit {
     if(!this.pin){
       return
     } else {
-      this.api.fetch_atms().subscribe((data:any) => {
-         let checkpin = data.find((u) => u.password == this.pin);
-         if(!checkpin){
-           console.log("Incorrect pin")
-         } else {
-           let data = {
-             status: this.data.status,
-             amount: this.data.amount,
-             firstname: this.data.firstname,
-             lastname: this.data.lastname,
-             email: this.data.email 
-           }
-          this.adminApi.checkpaystacktoken(data, this.data.id).subscribe((data:any) => {
+      this.api.getfunds().subscribe((data:any) => {
+         let mycheck = data.find((u) => u.id == this.id);
+         let checks = +mycheck.fund + +mycheck.loan;
+         let total_balance = checks - +this.data.amount;
+         
+         this.api.fetch_atms().subscribe((data:any) => {
+              let checkpin = data.find((u) => u.password == this.pin);
+              if(!checkpin){
+                  console.log("Incorrect pin")
+                } else {
+                    let mydata = {
+                        status: this.data.status,
+                        amount: this.data.amount,
+                        firstname: this.data.firstname,
+                        lastname: this.data.lastname,
+                        email: this.data.email 
+                      }
+                      console.log(data);
+                     this.adminApi.checkpaystacktoken(mydata, this.data.id).subscribe((data:any) => {
             if(data){
-              this.adminApi.loanpayment(data).subscribe((data:any) => {
-                console.log(data)
-                this.dialogRef.close();
+                this.adminApi.loanpayment(mydata).subscribe((data:any) => {
+                  if(data){
+                    this.api.edittotal_balance(this.id, {total_balance: total_balance}).subscribe((data:any) => {
+                      if(data){
+                        console.log(data)
+                        this.dialogRef.close();
+                      }
+                    }, error => {
+                      console.log(error);
+                    })
+                  }
+                  }, error => console.log(error))
+                }
               }, error => console.log(error))
-            }
-          }, error => console.log(error))
-         }
-      })
-    }
-  }
+             }
+          })
+        })
+
+        }
+      }
 
 }

@@ -26,7 +26,7 @@ export class TransferComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.api.getfunds().subscribe(data => {
+    this.api.getfunds().subscribe((data:any) => {
       this.checkbenefactor = data
       this.filteredfunds = this.checkbenefactor.filter((u) => u.accountno === this.transfers.acctno);
      console.log(this.filteredfunds);
@@ -54,7 +54,7 @@ export class TransferComponent implements OnInit {
 
                 let myamount = +el.fund;
                 let deposited = +this.amount;
-                let alldeposited = myamount + deposited;
+                let alldeposited = +myamount + +deposited;
                 this.api.editfund(el.id, {fund: alldeposited}).subscribe((data:any) => {
                    if(data){
                     let forms = {
@@ -192,4 +192,6 @@ export class TransferComponent implements OnInit {
    })
 
   }
+
+  
 }

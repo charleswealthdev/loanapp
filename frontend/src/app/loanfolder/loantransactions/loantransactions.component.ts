@@ -32,16 +32,14 @@ export class LoantransactionsComponent implements OnInit {
           else if((el.status == "approved") && (el.paid_status == "pending") && (el.id == this.loggedUser.id)){
             let totalunpaidloan = [];
             let totalunpaidloaninterest = [];
-            console.log(+el.amount)
-            console.log(+el.total)
             totalunpaidloan.push(+el.amount);
-            totalunpaidloaninterest.push(+el.total);
-
             let reduceramount = (acc, cur) => {
               return acc + (Number(cur));
             };
 
             this.totalamount = totalunpaidloan.reduce(reduceramount, 0);
+            totalunpaidloaninterest.push(+el.total);
+            
             let reducerInterest = (acc, cur) => {
               return acc + (Number(cur));
             };

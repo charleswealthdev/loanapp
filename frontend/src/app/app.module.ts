@@ -83,6 +83,7 @@ import { VtusComponent } from './airtimefolder/vtus/vtus.component';
 import { SuccessdialogComponent } from './airtimefolder/successdialog/successdialog.component';
 import { AirtimehistroyComponent } from './airtimefolder/airtimehistroy/airtimehistroy.component';
 import { DatabundlesComponent } from './airtimefolder/databundles/databundles.component';
+import { MaximumdialogComponent } from './loanfolder/maximumdialog/maximumdialog.component';
 
 
 @NgModule({
@@ -147,6 +148,7 @@ import { DatabundlesComponent } from './airtimefolder/databundles/databundles.co
     SuccessdialogComponent,
     AirtimehistroyComponent,
     DatabundlesComponent,
+    MaximumdialogComponent,
   ],
   imports: [
     BrowserModule,

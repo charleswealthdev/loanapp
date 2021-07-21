@@ -55,6 +55,10 @@ public numbers = 0;
     return this.http.post(`${this.api}editfundloan/${id}`, form);
   }
 
+  edittotal_balance(id, form){
+    return this.http.post(`${this.api}edittotal_balance/${id}`, form);
+  }
+
   // transaction function
   transaction(form){
     return this.http.post(`${this.api}transaction`, form)

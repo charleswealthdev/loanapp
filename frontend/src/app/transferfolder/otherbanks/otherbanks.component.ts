@@ -32,11 +32,12 @@ export class OtherbanksComponent implements OnInit {
   }
 
   submittransfer(){
+
     let {id} = this.actroute.snapshot.params;
-    this.api.getfunds().subscribe(data => {
+    this.api.getfunds().subscribe((data:any) => {
       this.getfunds = data;
-      let matchedId = this.getfunds.filter((u) => u.id == id);
-      matchedId.map((u) => {
+      let matchedId = this.getfunds.find((u) => u.id == id);
+      this.getfunds.map((u) => {
         if((this.myquest.value.acctname != `${u.firstname} ${u.surname}`)){
             return;
         } else{
@@ -44,7 +45,7 @@ export class OtherbanksComponent implements OnInit {
             if(this.myquest.value.acctno != el.accountno){
               return;
             } else{
-              if(this.myquest.value.amount > u.fund){
+              if(this.myquest.value.amount > matchedId.fund){
                   console.log("Dear customer, sorry you don't have such amount!")
               } else {
                 let transferdetails = {
@@ -61,6 +62,7 @@ export class OtherbanksComponent implements OnInit {
         }
       })
     })
+
   }
 
 

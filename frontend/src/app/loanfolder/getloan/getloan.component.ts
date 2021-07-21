@@ -71,11 +71,12 @@ export class GetloanComponent implements OnInit {
                return acc + (Number(cur));
               };
               this.totalamount  = myamountarray.reduce(reducer, 0);
+
            } 
            else{
              mytotal.push(+el.total);
              let reducerInterest = (acc, cur) => {
-               return acc + (Number(cur.total));
+               return acc + (Number(cur));
               };
             this.totalinterest = checkstatus.reduce(reducerInterest, 0);
            }
@@ -100,7 +101,7 @@ export class GetloanComponent implements OnInit {
     this.api.getfunds().subscribe((data:any) => {
       let mycheck = data.find(u => u.id == this.id);
       if(this.totalinterest >= mycheck.fund){
-        console.log("no loan again")
+        return;
       } else {
         this.router.navigate(['/sidebar/listofloans']);
         // console.log("you can check in")
@@ -112,7 +113,7 @@ export class GetloanComponent implements OnInit {
     this.load = true;
 
     this.api.getfunds().subscribe((data:any) => {
-      this.chekuserfund = data.find((u) => u.id = this.id);
+      this.chekuserfund = data.find((u) => u.id == this.id);
       
       this.adminApi.getrequests().subscribe((data:any) => {
         let checkstatus = data.filter((u) => u.id == this.id && u.paid_status === "pending");
@@ -123,24 +124,33 @@ export class GetloanComponent implements OnInit {
                      let edits = {
                        status: 'allocated'
                      }
+                    
                      this.adminApi.editallocation(edits, el.randomId).subscribe((data:any) => {
                        if(data){  
                          
-                         let reducer = (acc, cur) => {
+                      let reducer = (acc, cur) => {
                         return acc + (Number(cur.amount));
                        };
-                       this.totalamount  = checkstatus.reduce(reducer, 0);
 
-                         let totalfundloan = +this.totalamount + +this.chekuserfund.loan;
-                         
-                         this.api.editfundloan(this.id, {loan: totalfundloan}).subscribe((data:any) => {
-                           console.log(data);
-                           this.load = false
-                           this.totalamount = 0;
-                         }, error => {
-                           console.log(error);
-                           this.load = false
-                         })
+                       let totalamunt  = checkstatus.reduce(reducer, 0);
+                       
+                       let total_balance = +this.chekuserfund.fund + totalamunt;
+
+                       this.api.edittotal_balance(this.id, {total_balance}).subscribe((data:any) => {
+                        if(data){
+                          this.api.editfundloan(this.id, {loan: totalamunt}).subscribe((data:any) => {
+                            this.load = false
+                            this.totalamount = 0;
+                          }, error => {
+                            console.log(error);
+                            this.load = false
+                          })
+                        }
+
+                        }, error => {
+                          console.log(error)
+                        })
+
                        }
                        console.log(data);
                        this.load = false

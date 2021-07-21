@@ -118,7 +118,11 @@ export class UserDashboardComponent {
          this.fundArr.map((el) => {
            if (el.email === loggedUser.user.email) 
            {
-             this.fund = +el.fund + +el.loan;
+             if(el.total_balance == "0"){
+                this.fund = +el.fund + +el.loan;
+             } else {
+               this.fund = el.total_balance;
+             }
            }
          })
       },
